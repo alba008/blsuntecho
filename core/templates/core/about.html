@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}About Us | BlsunTech Dynamics{% endblock %}
+
+{% block content %}
+
+<section class="inner-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <span>/</span>
+            <span>About</span>
+        </div>
+
+        <span class="section-label">ABOUT BLSUNTECH DYNAMICS</span>
+
+        <h1>Technology with purpose.<br>Engineering with vision.</h1>
+
+        <p>
+            We believe the best digital systems are not simply built
+            to function. They're designed to solve meaningful problems,
+            strengthen operations, and create lasting value.
+        </p>
+    </div>
+</section>
+
+<section class="section about-story">
+    <div class="container about-story-grid">
+
+        <div class="about-image">
+            <figure class="about-editorial-photo">
+                <img
+                    src="{% static 'images/editorial/blsuntech-editorial-01.jpg' %}"
+                    alt="Editorial architectural photography"
+                    loading="lazy"
+                    decoding="async"
+                >
+            </figure>
+        </div>
+
+        <div class="about-story-content">
+            <span class="section-label">01 / OUR PHILOSOPHY</span>
+
+            <h2>We see systems<br>where others see problems.</h2>
+
+            <p>
+                Every organization operates through connected processes,
+                people, information, and technology.
+            </p>
+
+            <p>
+                Our approach begins with understanding those connections.
+                We then design the infrastructure and applications
+                that help them work together securely and efficiently.
+            </p>
+
+            <p>
+                From networking and cloud architecture to custom
+                software and automation, we approach each project
+                as part of a larger operational system.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section about-values">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">02 / OUR PRINCIPLES</span>
+                <h2>The principles behind<br>everything we build.</h2>
+            </div>
+        </div>
+
+        <div class="service-grid">
+
+            <article class="service-card">
+                <span class="service-number">01</span>
+                <div class="service-icon">⌘</div>
+                <h3>Security by Design</h3>
+                <p>Security is considered throughout architecture, development, and deployment.</p>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">02</span>
+                <div class="service-icon">↗</div>
+                <h3>Scalable Thinking</h3>
+                <p>We consider future growth when designing today's technology.</p>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">03</span>
+                <div class="service-icon">◎</div>
+                <h3>Purposeful Engineering</h3>
+                <p>Every technical decision should support a meaningful business objective.</p>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">04</span>
+                <div class="service-icon">◇</div>
+                <h3>Long-Term Value</h3>
+                <p>We prioritize maintainable systems and practical, lasting solutions.</p>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<section class="inner-cta">
+    <div class="container">
+        <span class="section-label">OUR NEXT CHAPTER</span>
+        <h2>Let's build something meaningful.</h2>
+        <p>Explore how our engineering approach can support your organization.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-dark">
+            Work With Us ↗
+        </a>
+    </div>
+</section>
+
+{% endblock %}

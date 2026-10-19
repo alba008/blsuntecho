@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Contact | BlsunTech Dynamics{% endblock %}
+
+{% block content %}
+
+<section class="inner-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <span>/</span>
+            <span>Contact</span>
+        </div>
+
+        <span class="section-label">LET'S BUILD SOMETHING MEANINGFUL</span>
+
+        <h1>Let's talk about<br>your next project.</h1>
+
+        <p>
+            Whether you're exploring a new digital platform,
+            improving an existing system, or planning your next
+            technology initiative, we'd like to hear about it.
+        </p>
+    </div>
+</section>
+
+<section class="section contact-page">
+    <div class="container contact-layout">
+
+        <div class="contact-intro">
+            <span class="section-label">START A CONVERSATION</span>
+            <h2>Tell us what<br>you have in mind.</h2>
+            <p>
+                Share a little about your business and what you're
+                looking to achieve. We'll review your inquiry and
+                get back to you when possible.
+            </p>
+        </div>
+
+        <form method="post" class="contact-form">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-errors" role="alert">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="contact-honeypot" aria-hidden="true">
+                {{ form.website }}
+            </div>
+
+            {% for field in form.visible_fields %}
+                {% if field.name != "website" %}
+                    <div class="form-field">
+                        <label for="{{ field.id_for_label }}">
+                            {{ field.label }}
+                            {% if field.field.required %}*{% endif %}
+                        </label>
+
+                        {{ field }}
+
+                        {% if field.errors %}
+                            <div class="field-error" role="alert">
+                                {{ field.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <button type="submit" class="btn btn-dark">
+                Send Inquiry ↗
+            </button>
+
+            <p class="form-note">
+                Information submitted here is used to review
+                and respond to your business inquiry.
+            </p>
+        </form>
+
+    </div>
+</section>
+
+{% endblock %}

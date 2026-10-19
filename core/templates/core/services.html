@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}Engineering Services | BlsunTech Dynamics{% endblock %}
+
+{% block content %}
+
+<section class="inner-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <span>/</span>
+            <span>Services</span>
+        </div>
+
+        <span class="section-label">OUR EXPERTISE / 01</span>
+        <h1>Engineering solutions.<br>Built around your business.</h1>
+        <p>
+            From network infrastructure to custom applications,
+            we build secure, reliable technology designed for
+            real operational challenges.
+        </p>
+    </div>
+</section>
+
+<section class="section inner-services">
+    <div class="container">
+
+        <article class="service-detail" id="cybersecurity">
+            <div class="service-detail-number">01 / SECURITY</div>
+            <div>
+                <h2>Cybersecurity & Network Engineering</h2>
+                <p>
+                    We help organizations design, configure, secure,
+                    and maintain the infrastructure that supports
+                    their digital operations.
+                </p>
+                <div class="detail-tags">
+                    <span>Network Architecture</span>
+                    <span>Linux Security</span>
+                    <span>Access Controls</span>
+                    <span>Security Monitoring</span>
+                    <span>Infrastructure Hardening</span>
+                </div>
+                <a class="detail-link" href="{% url 'core:contact' %}">
+                    Discuss your infrastructure ↗
+                </a>
+            </div>
+        </article>
+
+        <article class="service-detail" id="cloud">
+            <div class="service-detail-number">02 / INFRASTRUCTURE</div>
+            <div>
+                <h2>Cloud & DevOps Engineering</h2>
+                <p>
+                    We develop deployment environments and cloud
+                    infrastructure with a focus on reliability,
+                    maintainability, and operational security.
+                </p>
+                <div class="detail-tags">
+                    <span>AWS</span>
+                    <span>Docker</span>
+                    <span>Nginx</span>
+                    <span>Linux Servers</span>
+                    <span>CI/CD</span>
+                    <span>PostgreSQL</span>
+                </div>
+                <a class="detail-link" href="{% url 'core:contact' %}">
+                    Discuss your cloud project ↗
+                </a>
+            </div>
+        </article>
+
+        <article class="service-detail" id="software">
+            <div class="service-detail-number">03 / APPLICATIONS</div>
+            <div>
+                <h2>Custom Software Development</h2>
+                <p>
+                    We build tailored software systems that bring
+                    business processes, data, and users together
+                    in one connected environment.
+                </p>
+                <div class="detail-tags">
+                    <span>Django</span>
+                    <span>Python</span>
+                    <span>Web Applications</span>
+                    <span>Business Platforms</span>
+                    <span>API Integration</span>
+                </div>
+                <a class="detail-link" href="{% url 'core:home' %}#projects">
+                    Explore our projects ↗
+                </a>
+            </div>
+        </article>
+
+        <article class="service-detail" id="automation">
+            <div class="service-detail-number">04 / INTELLIGENCE</div>
+            <div>
+                <h2>Automation & Intelligent Systems</h2>
+                <p>
+                    We connect workflows, automate repetitive tasks,
+                    and develop systems that deliver the right
+                    information to the right people.
+                </p>
+                <div class="detail-tags">
+                    <span>Workflow Automation</span>
+                    <span>Notifications</span>
+                    <span>System Integration</span>
+                    <span>Operational Dashboards</span>
+                </div>
+                <a class="detail-link" href="{% url 'core:contact' %}">
+                    Explore automation ↗
+                </a>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<section class="inner-cta">
+    <div class="container">
+        <span class="section-label">LET'S COLLABORATE</span>
+        <h2>Technology should solve problems.</h2>
+        <p>Tell us what you're trying to achieve. We'll explore the right engineering approach.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-dark">
+            Start a Conversation ↗
+        </a>
+    </div>
+</section>
+
+{% endblock %}

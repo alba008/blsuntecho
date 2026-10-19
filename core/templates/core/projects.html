@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Projects & Case Studies | BlsunTech Dynamics{% endblock %}
+
+{% block content %}
+
+<section class="inner-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <span>/</span>
+            <span>Projects</span>
+        </div>
+
+        <span class="section-label">SELECTED WORK / 03</span>
+
+        <h1>Real challenges.<br>Engineered solutions.</h1>
+
+        <p>
+            A selection of digital platforms, business systems,
+            and technology solutions developed across different
+            industries and operational needs.
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+
+        <div class="portfolio-grid">
+
+            <article class="portfolio-card">
+                <a
+                    class="portfolio-visual portfolio-screenshot"
+                    href="https://kira.ithewatcher.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Kira Edu website"
+                >
+                    <img
+                        src="{% static 'images/projects/kira-edu.webp' %}"
+                        alt="Kira Edu platform screenshot"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </a>
+                <div class="portfolio-meta">
+                    <span>01 / EDUCATION TECHNOLOGY</span>
+                    <span>DJANGO · AUTOMATION</span>
+                </div>
+                <h2><a class="case-title-link" href="{% url 'core:project_detail' slug='kira-edu' %}">Kira Edu</a></h2>
+                <p>
+                    A learning platform supporting course management,
+                    class scheduling, student enrollment, payments,
+                    and automated role-based communications.
+                </p>
+            
+                <a class="portfolio-link"
+                   href="https://kira.ithewatcher.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit Kira Edu ↗
+                </a>
+</article>
+
+            <article class="portfolio-card">
+                <a
+                    class="portfolio-visual portfolio-screenshot"
+                    href="https://sockcs.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Sockcs website"
+                >
+                    <img
+                        src="{% static 'images/projects/sockcs.webp' %}"
+                        alt="Sockcs platform screenshot"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </a>
+                <div class="portfolio-meta">
+                    <span>02 / E-COMMERCE</span>
+                    <span>DIGITAL COMMERCE</span>
+                </div>
+                <h2><a class="case-title-link" href="{% url 'core:project_detail' slug='sockcs' %}">Sockcs</a></h2>
+                <p>
+                    An online shopping platform designed to
+                    present products and support digital commerce.
+                </p>
+                <a class="portfolio-link"
+                   href="https://sockcs.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit Sockcs ↗
+                </a>
+            </article>
+
+            <article class="portfolio-card">
+                <a
+                    class="portfolio-visual portfolio-screenshot"
+                    href="https://dafara.org/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit DAFARA website"
+                >
+                    <img
+                        src="{% static 'images/projects/dafara.webp' %}"
+                        alt="DAFARA platform screenshot"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </a>
+                <div class="portfolio-meta">
+                    <span>03 / SOCIAL IMPACT</span>
+                    <span>WEB PLATFORM · PAYMENTS</span>
+                </div>
+                <h2><a class="case-title-link" href="{% url 'core:project_detail' slug='dafara' %}">DAFARA</a></h2>
+                <p>
+                    A nonprofit digital platform presenting
+                    organizational programs, initiatives, and
+                    donation pathways.
+                </p>
+                <a class="portfolio-link"
+                   href="https://dafara.org/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit DAFARA ↗
+                </a>
+            </article>
+
+            <article class="portfolio-card">
+                <a
+                    class="portfolio-visual portfolio-screenshot"
+                    href="https://makutanoni.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Visit Makutanoni website"
+                >
+                    <img
+                        src="{% static 'images/projects/makutanoni.webp' %}"
+                        alt="Makutanoni platform screenshot"
+                        loading="lazy"
+                        decoding="async"
+                    >
+                </a>
+                <div class="portfolio-meta">
+                    <span>04 / MARKETPLACE</span>
+                    <span>PLATFORM ENGINEERING</span>
+                </div>
+                <h2><a class="case-title-link" href="{% url 'core:project_detail' slug='makutanoni' %}">Makutanoni</a></h2>
+                <p>
+                    A digital marketplace built around product
+                    discovery, listings, and connecting people
+                    with commercial opportunities.
+                </p>
+            
+                <a class="portfolio-link"
+                   href="https://makutanoni.com/"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visit Makutanoni ↗
+                </a>
+</article>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="inner-cta">
+    <div class="container">
+        <span class="section-label">YOUR PROJECT COULD BE NEXT</span>
+        <h2>Have a system in mind?</h2>
+        <p>
+            Let's explore how software, infrastructure,
+            and intelligent automation can support your goals.
+        </p>
+        <a href="{% url 'core:contact' %}" class="btn btn-dark">
+            Start a Conversation ↗
+        </a>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,194 @@
+{% extends "base.html" %}
+
+{% block title %}BlsunTech Dynamics | Secure Digital Engineering{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="hero-content">
+            <span class="eyebrow"><span class="status-dot"></span> TECHNOLOGY & ENGINEERING SOLUTIONS</span>
+
+            <h1>Engineering<br>the Future of<br><span>Digital Business.</span></h1>
+
+            <p>
+                We design, build, and secure digital infrastructure,
+                cloud environments, and intelligent business applications
+                that help organizations operate with confidence.
+            </p>
+
+            <div class="hero-actions">
+                <a href="#services" class="btn btn-dark">Explore Our Services <span>↗</span></a>
+                <a href="#projects" class="btn btn-outline">View Our Work <span>↗</span></a>
+            </div>
+
+            <div class="hero-proof">
+                <span class="proof-line"></span>
+                <span>BUILT FOR PERFORMANCE. ENGINEERED FOR TRUST.</span>
+            </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Illustration of secure digital infrastructure">
+            <div class="visual-topline">
+                <span>INFRASTRUCTURE / SYSTEM STATUS</span>
+                <span class="online"><i></i> OPERATIONAL</span>
+            </div>
+
+            <div class="server-stack">
+                <div class="server-unit">
+                    <span class="server-id">NODE / 01</span>
+                    <span class="server-slots"></span>
+                    <span class="server-lights"><i></i><i></i><i></i></span>
+                </div>
+                <div class="server-unit">
+                    <span class="server-id">NODE / 02</span>
+                    <span class="server-slots"></span>
+                    <span class="server-lights"><i></i><i></i><i></i></span>
+                </div>
+                <div class="server-unit">
+                    <span class="server-id">NODE / 03</span>
+                    <span class="server-slots"></span>
+                    <span class="server-lights"><i></i><i></i><i></i></span>
+                </div>
+                <div class="server-unit">
+                    <span class="server-id">NODE / 04</span>
+                    <span class="server-slots"></span>
+                    <span class="server-lights"><i></i><i></i><i></i></span>
+                </div>
+            </div>
+
+            <div class="visual-bottomline">
+                <span>SECURE SYSTEM ARCHITECTURE</span>
+                <span>BLST / 2026</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section services-section" id="services">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">01 / OUR EXPERTISE</span>
+                <h2>Technology that works.<br>Engineering that lasts.</h2>
+            </div>
+            <p>From secure infrastructure to purpose-built software, we provide the technical foundation businesses need to grow.</p>
+        </div>
+
+        <div class="service-grid">
+            <article class="service-card">
+                <span class="service-number">01</span>
+                <div class="service-icon">⌘</div>
+                <h3>Cybersecurity & Networking</h3>
+                <p>Protecting critical systems through network engineering, infrastructure hardening, access controls, and defensive monitoring.</p>
+                <a href="{% url 'core:contact' %}">Discuss a Solution <span>↗</span></a>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">02</span>
+                <div class="service-icon">☁</div>
+                <h3>Cloud & DevOps</h3>
+                <p>Designing reliable cloud infrastructure, containerized deployments, automated workflows, and scalable hosting environments.</p>
+                <a href="{% url 'core:contact' %}">Discuss a Solution <span>↗</span></a>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">03</span>
+                <div class="service-icon">&lt;/&gt;</div>
+                <h3>Software Development</h3>
+                <p>Building custom business applications, management platforms, marketplaces, and connected digital experiences.</p>
+                <a href="{% url 'core:contact' %}">Discuss a Solution <span>↗</span></a>
+            </article>
+
+            <article class="service-card">
+                <span class="service-number">04</span>
+                <div class="service-icon">⚙</div>
+                <h3>Automation & Systems</h3>
+                <p>Streamlining operations with intelligent workflows, role-based communications, integrations, and process automation.</p>
+                <a href="{% url 'core:contact' %}">Discuss a Solution <span>↗</span></a>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section solutions-section" id="solutions">
+    <div class="container solutions-grid">
+        <div>
+            <span class="section-label">02 / WHAT WE BUILD</span>
+            <h2>More than websites.<br>Complete digital systems.</h2>
+        </div>
+        <div class="solutions-copy">
+            <p>We combine software engineering, networking, cloud infrastructure, and security into solutions designed for real business operations.</p>
+            <div class="solution-tags">
+                <span>Business Platforms</span>
+                <span>Cloud Infrastructure</span>
+                <span>Secure Web Applications</span>
+                <span>Workflow Automation</span>
+                <span>Digital Marketplaces</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section projects-section" id="projects">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">03 / SELECTED WORK</span>
+                <h2>Ideas transformed<br>into working systems.</h2>
+            </div>
+            <p>Explore examples of digital solutions designed to address real operational challenges.</p>
+        </div>
+
+        <div class="project-grid">
+            <article class="project-card">
+                <div class="project-visual project-academy">
+                    <span class="project-visual-label">EDUCATION TECHNOLOGY</span>
+                    <div class="project-symbol">E<span>.</span></div>
+                </div>
+                <div class="project-info">
+                    <span>LEARNING MANAGEMENT / AUTOMATION</span>
+                    <h3>Kira Edu Learning Platform</h3>
+                    <p>Enrollment, scheduling, payment processing, and role-based communication in one connected platform.</p>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-visual project-dafara">
+                    <span class="project-visual-label">NONPROFIT TECHNOLOGY</span>
+                    <div class="project-symbol">D<span>.</span></div>
+                </div>
+                <div class="project-info">
+                    <span>WEB PLATFORM / DIGITAL OUTREACH</span>
+                    <h3>DAFARA Organization</h3>
+                    <p>A digital platform connecting humanitarian programs, organizational information, and donation pathways.</p>
+                </div>
+            </article>
+
+            <article class="project-card">
+                <div class="project-visual project-marketplace">
+                    <span class="project-visual-label">DIGITAL COMMERCE</span>
+                    <div class="project-symbol">M<span>.</span></div>
+                </div>
+                <div class="project-info">
+                    <span>MARKETPLACE / BUSINESS SYSTEMS</span>
+                    <h3>Makutanoni Marketplace</h3>
+                    <p>A marketplace system supporting business listings, structured moderation, and commercial discovery.</p>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="contact-section" id="contact">
+    <div class="container contact-inner">
+        <span class="section-label">04 / LET'S BUILD SOMETHING</span>
+        <h2>Have a challenge?<br>Let's engineer a solution.</h2>
+        <p>Tell us what you're building. We'll help you explore the technology, architecture, and systems needed to bring it to life.</p>
+        <a href="{% url 'core:contact' %}" class="btn btn-white">
+            Start a Conversation <span>↗</span>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

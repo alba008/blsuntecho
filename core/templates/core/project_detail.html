@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ project.name }} | BlsunTech Dynamics{% endblock %}
+
+{% block content %}
+
+<section class="inner-hero case-hero">
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="{% url 'core:home' %}">Home</a>
+            <span>/</span>
+            <a href="{% url 'core:projects' %}">Projects</a>
+            <span>/</span>
+            <span>{{ project.name }}</span>
+        </div>
+
+        <span class="section-label">{{ project.category }}</span>
+
+        <h1>{{ project.name }}</h1>
+        <p>{{ project.overview }}</p>
+    </div>
+</section>
+
+<section class="section case-content">
+    <div class="container">
+
+        <div class="case-image">
+            <img
+                src="{% static project.image %}"
+                alt="{{ project.name }} platform screenshot"
+                decoding="async"
+            >
+        </div>
+
+        <div class="case-section">
+            <span class="case-number">01 / PROJECT OVERVIEW</span>
+            <div>
+                <h2>Project Overview</h2>
+                <p>{{ project.overview }}</p>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <span class="case-number">02 / THE CHALLENGE</span>
+            <div>
+                <h2>The Challenge</h2>
+                <p>{{ project.challenge }}</p>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <span class="case-number">03 / OUR SOLUTION</span>
+            <div>
+                <h2>Our Solution</h2>
+                <p>{{ project.solution }}</p>
+            </div>
+        </div>
+
+        <div class="case-section">
+            <span class="case-number">04 / EXPLORE THE PLATFORM</span>
+            <div>
+                <h2>Explore the Platform</h2>
+                <p>
+                    Visit the live website to explore the public-facing
+                    platform.
+                </p>
+                <a
+                    href="{{ project.website }}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-dark"
+                >
+                    Visit Live Website ↗
+                </a>
+            </div>
+        </div>
+
+        <div class="case-back">
+            <a href="{% url 'core:projects' %}">
+                ← Back to All Projects
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
