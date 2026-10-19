@@ -1,0 +1,21 @@
+# BLSUNTECH_V2_DOCKERIGNORE_V1
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+*.bak
+db.sqlite3
+db.sqlite3-*
+*.sqlite3
+*.sqlite3-*
+staticfiles
+media
+.DS_Store
+.pytest_cache
+.coverage

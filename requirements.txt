@@ -1,0 +1,8 @@
+Django==5.2.18
+django-redis==6.0.0
+redis==8.1.0
+Pillow==13.0.0
+gunicorn==23.0.0
+psycopg==3.2.13
+psycopg-binary==3.2.13
+whitenoise==6.12.0

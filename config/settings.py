@@ -44,6 +44,9 @@ def env_bool(name, default=False):
 
 PRODUCTION = env_bool("DJANGO_PRODUCTION", False)
 
+# Enable only after verifying the trusted Nginx boundary.
+TRUST_NGINX_REAL_IP = env_bool("DJANGO_TRUST_NGINX_REAL_IP", False)
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -79,6 +82,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -110,12 +114,45 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# BLSUNTECH_POSTGRES_PRODUCTION_V1
+if PRODUCTION:
+    required_db_vars = (
+        "POSTGRES_DB",
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_HOST",
+    )
+
+    missing_db_vars = [
+        name for name in required_db_vars
+        if not os.environ.get(name)
+    ]
+
+    if missing_db_vars:
+        raise RuntimeError(
+            "Missing production database variables: "
+            + ", ".join(missing_db_vars)
+        )
+
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["POSTGRES_DB"],
+            "USER": os.environ["POSTGRES_USER"],
+            "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+            "HOST": os.environ["POSTGRES_HOST"],
+            "PORT": os.environ.get("POSTGRES_PORT", "5432"),
+            "CONN_MAX_AGE": 60,
+            "CONN_HEALTH_CHECKS": True,
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation
@@ -189,6 +226,15 @@ CSRF_COOKIE_SECURE = PRODUCTION
 
 SECURE_SSL_REDIRECT = PRODUCTION
 
+# BLSUNTECH_TRUSTED_HTTPS_PROXY_V1
+# Only enable this behind a trusted reverse proxy that
+# overwrites X-Forwarded-Proto and blocks direct app access.
+if PRODUCTION:
+    SECURE_PROXY_SSL_HEADER = (
+        "HTTP_X_FORWARDED_PROTO",
+        "https",
+    )
+
 SECURE_HSTS_SECONDS = (
     0 if not PRODUCTION else 3600
 )
@@ -213,11 +259,21 @@ CACHES = {
 # BLSUNTECH_REDIS_SECURITY_CACHE_V1
 # Separate Redis cache for contact security counters.
 # Redis must be reachable from the Django application.
+# BLSUNTECH_PRODUCTION_REDIS_V1
+security_redis_url = os.environ.get(
+    "DJANGO_SECURITY_REDIS_URL", ""
+)
+
+if PRODUCTION and not security_redis_url:
+    raise RuntimeError(
+        "DJANGO_SECURITY_REDIS_URL is required in production."
+    )
+
 CACHES["security"] = {
     "BACKEND": "django_redis.cache.RedisCache",
-    "LOCATION": os.environ.get(
-        "DJANGO_SECURITY_REDIS_URL",
-        "redis://127.0.0.1:6379/5",
+    "LOCATION": (
+        security_redis_url
+        or "redis://127.0.0.1:6379/5"
     ),
     "OPTIONS": {
         "CLIENT_CLASS": "django_redis.client.DefaultClient",

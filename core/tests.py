@@ -97,6 +97,108 @@ class ContactSecurityTests(TestCase):
         self.assertEqual(response.status_code, 429)
         self.assertEqual(BusinessInquiry.objects.count(), 0)
 
+    def test_real_ip_header_ignored_by_default(self):
+        from django.test import RequestFactory
+        from .contact_security import client_identifier
+
+        request = RequestFactory().get(
+            "/contact/",
+            REMOTE_ADDR="192.0.2.10",
+            HTTP_X_REAL_IP="198.51.100.20",
+        )
+
+        with override_settings(TRUST_NGINX_REAL_IP=False):
+            self.assertEqual(client_identifier(request), "192.0.2.10")
+
+    def test_trusted_nginx_real_ip(self):
+        from django.test import RequestFactory
+        from .contact_security import client_identifier
+
+        request = RequestFactory().get(
+            "/contact/",
+            REMOTE_ADDR="172.17.0.1",
+            HTTP_X_REAL_IP="198.51.100.20",
+            HTTP_X_FORWARDED_FOR="203.0.113.99",
+        )
+
+        with override_settings(TRUST_NGINX_REAL_IP=True):
+            self.assertEqual(client_identifier(request), "198.51.100.20")
+
+    def test_invalid_trusted_real_ip_is_not_accepted(self):
+        from django.test import RequestFactory
+        from .contact_security import client_identifier
+
+        request = RequestFactory().get(
+            "/contact/",
+            REMOTE_ADDR="172.17.0.1",
+            HTTP_X_REAL_IP="invalid-address",
+        )
+
+        with override_settings(TRUST_NGINX_REAL_IP=True):
+            self.assertEqual(client_identifier(request), "unknown")
+
+
+    def test_django_redis_connection_interrupted_on_add(self):
+        from unittest.mock import patch
+        from django_redis.exceptions import ConnectionInterrupted
+
+        with patch(
+            "core.contact_security.cache.add",
+            side_effect=ConnectionInterrupted("Redis unavailable"),
+        ):
+            response = self.client.post(self.url, self.payload)
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response["Retry-After"], "60")
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
+    def test_django_redis_connection_interrupted_on_incr(self):
+        from unittest.mock import patch
+        from django_redis.exceptions import ConnectionInterrupted
+
+        with patch(
+            "core.contact_security.cache.add",
+            return_value=False,
+        ), patch(
+            "core.contact_security.cache.incr",
+            side_effect=ConnectionInterrupted("Redis unavailable"),
+        ):
+            response = self.client.post(self.url, self.payload)
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response["Retry-After"], "60")
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
+    def test_redis_outage_returns_503(self):
+        from unittest.mock import patch
+        from redis.exceptions import ConnectionError as RedisConnectionError
+
+        with patch(
+            "core.contact_security.cache.add",
+            side_effect=RedisConnectionError("Redis unavailable"),
+        ):
+            response = self.client.post(self.url, self.payload)
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(response["Retry-After"], "60")
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
+    def test_redis_increment_failure_returns_503(self):
+        from unittest.mock import patch
+        from redis.exceptions import ConnectionError as RedisConnectionError
+
+        with patch(
+            "core.contact_security.cache.add",
+            return_value=False,
+        ), patch(
+            "core.contact_security.cache.incr",
+            side_effect=RedisConnectionError("Redis unavailable"),
+        ):
+            response = self.client.post(self.url, self.payload)
+
+        self.assertEqual(response.status_code, 503)
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
     def test_contact_page_loads(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)

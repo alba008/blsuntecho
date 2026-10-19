@@ -134,6 +134,25 @@ def contact(request):
     from .contact_security import (
         submission_allowed,
         contact_request_allowed,
+        SecurityCacheUnavailable,
+    )
+
+    try:
+        return _contact_with_security(request)
+    except SecurityCacheUnavailable:
+        return HttpResponse(
+            "Contact submissions are temporarily unavailable. "
+            "Please try again later.",
+            status=503,
+            headers={"Retry-After": "60"},
+        )
+
+
+def _contact_with_security(request):
+    from django.http import HttpResponse
+    from .contact_security import (
+        submission_allowed,
+        contact_request_allowed,
     )
 
     if request.method == "POST":

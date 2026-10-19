@@ -4,6 +4,13 @@ import ipaddress
 
 from django.conf import settings
 from django.core.cache import caches
+from redis.exceptions import RedisError
+from django_redis.exceptions import ConnectionInterrupted
+
+
+class SecurityCacheUnavailable(Exception):
+    pass
+
 
 cache = caches['security']
 
@@ -14,16 +21,19 @@ MAX_SUBMISSIONS = 3
 
 def client_identifier(request):
     """
-    Use the direct peer address.
+    Trust X-Real-IP only behind the verified production proxy.
 
-    Production proxy configuration must be reviewed separately.
-    Do not trust arbitrary X-Forwarded-For headers.
+    Nginx must overwrite this header and the application must
+    not be directly reachable by untrusted clients.
     """
     address = request.META.get("REMOTE_ADDR", "")
 
+    if getattr(settings, "TRUST_NGINX_REAL_IP", False):
+        address = request.META.get("HTTP_X_REAL_IP", "")
+
     try:
         return str(ipaddress.ip_address(address))
-    except ValueError:
+    except (ValueError, TypeError):
         return "unknown"
 
 
@@ -48,13 +58,13 @@ def submission_allowed(request):
     """
     key = rate_limit_key(request)
 
-    if cache.add(key, 1, timeout=WINDOW_SECONDS):
-        return True
-
     try:
+        if cache.add(key, 1, timeout=WINDOW_SECONDS):
+            return True
         count = cache.incr(key)
+    except (RedisError, ConnectionInterrupted) as exc:
+        raise SecurityCacheUnavailable from exc
     except (ValueError, NotImplementedError):
-        # Fail closed when an existing counter cannot be updated.
         return False
 
     return count <= MAX_SUBMISSIONS
@@ -81,11 +91,12 @@ def contact_request_allowed(request):
 
     key = f"blsuntech:contact:requests:v1:{digest}"
 
-    if cache.add(key, 1, timeout=REQUEST_WINDOW_SECONDS):
-        return True
-
     try:
+        if cache.add(key, 1, timeout=REQUEST_WINDOW_SECONDS):
+            return True
         count = cache.incr(key)
+    except (RedisError, ConnectionInterrupted) as exc:
+        raise SecurityCacheUnavailable from exc
     except (ValueError, NotImplementedError):
         return False
 

@@ -33,3 +33,4 @@ media/
 
 # Local project backups
 /backups/
+!.env.production.example
