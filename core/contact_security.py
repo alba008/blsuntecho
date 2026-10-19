@@ -3,7 +3,9 @@ import hmac
 import ipaddress
 
 from django.conf import settings
-from django.core.cache import cache
+from django.core.cache import caches
+
+cache = caches['security']
 
 
 WINDOW_SECONDS = 600

@@ -1,4 +1,4 @@
-from django.core.cache import cache
+from django.core.cache import caches
 from django.test import Client, TestCase, override_settings
 from django.urls import reverse
 
@@ -10,13 +10,17 @@ from .models import BusinessInquiry
         "default": {
             "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
             "LOCATION": "blsuntech-contact-tests",
-        }
+        },
+        "security": {
+            "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+            "LOCATION": "blsuntech-security-tests",
+        },
     }
 )
 class ContactSecurityTests(TestCase):
 
     def setUp(self):
-        cache.clear()
+        caches["security"].clear()
         self.url = reverse("core:contact")
         self.payload = {
             "name": "Security Test",
@@ -29,6 +33,25 @@ class ContactSecurityTests(TestCase):
             ),
             "website": "",
         }
+
+    def test_concurrent_rate_limit(self):
+        from concurrent.futures import ThreadPoolExecutor
+        from django.test import RequestFactory
+        from .contact_security import submission_allowed
+
+        factory = RequestFactory()
+
+        def attempt(_):
+            request = factory.post(
+                "/contact/",
+                REMOTE_ADDR="192.0.2.99",
+            )
+            return submission_allowed(request)
+
+        with ThreadPoolExecutor(max_workers=10) as executor:
+            results = list(executor.map(attempt, range(20)))
+
+        self.assertEqual(sum(results), 3)
 
     def test_contact_page_loads(self):
         response = self.client.get(self.url)

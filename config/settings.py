@@ -202,3 +202,25 @@ CSRF_TRUSTED_ORIGINS = [
     ).split(",")
     if origin.strip()
 ]
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
+
+# BLSUNTECH_REDIS_SECURITY_CACHE_V1
+# Separate Redis cache for contact security counters.
+# Redis must be reachable from the Django application.
+CACHES["security"] = {
+    "BACKEND": "django_redis.cache.RedisCache",
+    "LOCATION": os.environ.get(
+        "DJANGO_SECURITY_REDIS_URL",
+        "redis://127.0.0.1:6379/5",
+    ),
+    "OPTIONS": {
+        "CLIENT_CLASS": "django_redis.client.DefaultClient",
+    },
+    "KEY_PREFIX": "blsuntech_security",
+}
