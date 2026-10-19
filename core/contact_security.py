@@ -58,3 +58,35 @@ def submission_allowed(request):
         return False
 
     return count <= MAX_SUBMISSIONS
+
+
+# BLSUNTECH_CONTACT_REQUEST_LIMIT_V1
+REQUEST_WINDOW_SECONDS = 600
+MAX_REQUESTS = 20
+
+
+def contact_request_allowed(request):
+    """
+    Count all contact POST attempts, including invalid submissions.
+
+    Uses the existing security cache and its atomic add/incr operations.
+    """
+    identifier = client_identifier(request)
+
+    digest = hmac.new(
+        settings.SECRET_KEY.encode(),
+        ("request:" + identifier).encode(),
+        hashlib.sha256,
+    ).hexdigest()
+
+    key = f"blsuntech:contact:requests:v1:{digest}"
+
+    if cache.add(key, 1, timeout=REQUEST_WINDOW_SECONDS):
+        return True
+
+    try:
+        count = cache.incr(key)
+    except (ValueError, NotImplementedError):
+        return False
+
+    return count <= MAX_REQUESTS

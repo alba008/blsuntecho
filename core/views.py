@@ -130,9 +130,20 @@ from .forms import BusinessInquiryForm
 
 @require_http_methods(["GET", "POST"])
 def contact(request):
-    from .contact_security import submission_allowed
+    from django.http import HttpResponse
+    from .contact_security import (
+        submission_allowed,
+        contact_request_allowed,
+    )
 
     if request.method == "POST":
+        if not contact_request_allowed(request):
+            return HttpResponse(
+                "Too many requests. Please try again later.",
+                status=429,
+                headers={"Retry-After": "600"},
+            )
+
         form = BusinessInquiryForm(request.POST)
 
         if form.is_valid():

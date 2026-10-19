@@ -53,6 +53,50 @@ class ContactSecurityTests(TestCase):
 
         self.assertEqual(sum(results), 3)
 
+    def test_invalid_requests_are_throttled(self):
+        payload = {
+            **self.payload,
+            "message": "short",
+        }
+
+        for _ in range(20):
+            response = self.client.post(
+                self.url,
+                payload,
+                REMOTE_ADDR="192.0.2.110",
+            )
+            self.assertEqual(response.status_code, 200)
+
+        response = self.client.post(
+            self.url,
+            payload,
+            REMOTE_ADDR="192.0.2.110",
+        )
+
+        self.assertEqual(response.status_code, 429)
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
+    def test_request_limit_across_sessions(self):
+        payload = {
+            **self.payload,
+            "message": "short",
+        }
+
+        for _ in range(20):
+            client = Client(REMOTE_ADDR="192.0.2.111")
+            response = client.post(self.url, payload)
+            self.assertEqual(response.status_code, 200)
+
+        client = Client(
+            REMOTE_ADDR="192.0.2.111",
+            HTTP_X_FORWARDED_FOR="203.0.113.25",
+        )
+
+        response = client.post(self.url, payload)
+
+        self.assertEqual(response.status_code, 429)
+        self.assertEqual(BusinessInquiry.objects.count(), 0)
+
     def test_contact_page_loads(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
