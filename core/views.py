@@ -130,20 +130,17 @@ from .forms import BusinessInquiryForm
 
 @require_http_methods(["GET", "POST"])
 def contact(request):
+    from .contact_security import submission_allowed
+
     if request.method == "POST":
         form = BusinessInquiryForm(request.POST)
 
         if form.is_valid():
-            # Basic per-session submission cooldown.
-            if not request.session.session_key:
-                request.session.create()
-
-            key = "contact_cooldown:" + request.session.session_key
-
-            if not cache.add(key, True, timeout=60):
+            if not submission_allowed(request):
                 form.add_error(
                     None,
-                    "Please wait a minute before sending another inquiry."
+                    "Too many inquiries have been submitted. "
+                    "Please try again later."
                 )
             else:
                 form.save()
