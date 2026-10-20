@@ -25,12 +25,23 @@
 <section class="section case-content">
     <div class="container">
 
-        <div class="case-image">
+        <div class="case-image{% if request.resolver_match.kwargs.slug == 'sockcs' %} case-showcase{% endif %}">
+            {% if request.resolver_match.kwargs.slug == 'sockcs' %}
+            <div class="showcase-slides" data-showcase>
+                <img src="{% static project.image %}" alt="Sockcs platform screenshot" class="showcase-slide is-active" decoding="async">
+                <img src="{% static 'images/projects/sockcs-showcase/sockcs-01.png' %}" alt="Sockcs showcase section 1" class="showcase-slide" loading="lazy" decoding="async">
+                <img src="{% static 'images/projects/sockcs-showcase/sockcs-02.png' %}" alt="Sockcs showcase section 2" class="showcase-slide" loading="lazy" decoding="async">
+                <img src="{% static 'images/projects/sockcs-showcase/sockcs-03.png' %}" alt="Sockcs showcase section 3" class="showcase-slide" loading="lazy" decoding="async">
+                <img src="{% static 'images/projects/sockcs-showcase/sockcs-04.png' %}" alt="Sockcs showcase section 4" class="showcase-slide" loading="lazy" decoding="async">
+                <img src="{% static 'images/projects/sockcs-showcase/sockcs-05.png' %}" alt="Sockcs showcase section 5" class="showcase-slide" loading="lazy" decoding="async">
+            </div>
+            {% else %}
             <img
                 src="{% static project.image %}"
                 alt="{{ project.name }} platform screenshot"
                 decoding="async"
             >
+            {% endif %}
         </div>
 
         <div class="case-section">

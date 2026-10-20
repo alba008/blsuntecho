@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}BlsunTech Dynamics | Secure Digital Engineering{% endblock %}
 
@@ -142,7 +143,10 @@
 
         <div class="project-grid">
             <article class="project-card">
+    <a class="project-card-link" href="{% url 'core:project_detail' slug='kira-edu' %}">
                 <div class="project-visual project-academy">
+                        <img class="home-project-screenshot" src="{% static 'images/projects/kira-edu.webp' %}" alt="Kira Edu platform screenshot" loading="lazy" decoding="async">
+
                     <span class="project-visual-label">EDUCATION TECHNOLOGY</span>
                     <div class="project-symbol">E<span>.</span></div>
                 </div>
@@ -151,10 +155,14 @@
                     <h3>Kira Edu Learning Platform</h3>
                     <p>Enrollment, scheduling, payment processing, and role-based communication in one connected platform.</p>
                 </div>
-            </article>
+                </a>
+</article>
 
             <article class="project-card">
+    <a class="project-card-link" href="{% url 'core:project_detail' slug='dafara' %}">
                 <div class="project-visual project-dafara">
+                        <img class="home-project-screenshot" src="{% static 'images/projects/dafara.webp' %}" alt="DAFARA platform screenshot" loading="lazy" decoding="async">
+
                     <span class="project-visual-label">NONPROFIT TECHNOLOGY</span>
                     <div class="project-symbol">D<span>.</span></div>
                 </div>
@@ -163,10 +171,14 @@
                     <h3>DAFARA Organization</h3>
                     <p>A digital platform connecting humanitarian programs, organizational information, and donation pathways.</p>
                 </div>
-            </article>
+                </a>
+</article>
 
             <article class="project-card">
+    <a class="project-card-link" href="{% url 'core:project_detail' slug='makutanoni' %}">
                 <div class="project-visual project-marketplace">
+                        <img class="home-project-screenshot" src="{% static 'images/projects/makutanoni.webp' %}" alt="Makutanoni platform screenshot" loading="lazy" decoding="async">
+
                     <span class="project-visual-label">DIGITAL COMMERCE</span>
                     <div class="project-symbol">M<span>.</span></div>
                 </div>
@@ -175,7 +187,26 @@
                     <h3>Makutanoni Marketplace</h3>
                     <p>A marketplace system supporting business listings, structured moderation, and commercial discovery.</p>
                 </div>
+                </a>
+</article>
+
+            <article class="project-card">
+                <a class="project-card-link"
+                   href="{% url 'core:project_detail' slug='sockcs' %}">
+                    <div class="project-visual project-sockcs">
+                        <img class="home-project-screenshot" src="{% static 'images/projects/sockcs.webp' %}" alt="Sockcs platform screenshot" loading="lazy" decoding="async">
+
+                        <span class="project-visual-label">E-COMMERCE</span>
+                        <div class="project-symbol">S<span>.</span></div>
+                    </div>
+                    <div class="project-info">
+                        <span>ONLINE SHOP / DIGITAL COMMERCE</span>
+                        <h3>Sockcs Online Shop</h3>
+                        <p>An online shopping platform designed to present products and support digital commerce.</p>
+                    </div>
+                </a>
             </article>
+
         </div>
     </div>
 </section>
@@ -188,6 +219,32 @@
         <a href="{% url 'core:contact' %}" class="btn btn-white">
             Start a Conversation <span>↗</span>
         </a>
+    </div>
+</section>
+
+
+<!-- BLSUNTECH TRUSTED BY V1 -->
+<section class="trusted-section" aria-labelledby="trusted-heading">
+    <div class="container">
+        <span class="section-label">OUR RELATIONSHIPS</span>
+        <h2 id="trusted-heading">Trusted By</h2>
+    </div>
+
+    <div class="trusted-marquee">
+        <div class="trusted-track">
+            <div class="trusted-group">
+<img class="trusted-logo" src="{% static 'images/dafara-official-logo.png' %}" alt="" aria-hidden="true" decoding="async">
+                <a href="https://dafara.org/"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="trusted-name">DAFARA</a>
+            </div>
+
+            <div class="trusted-group" aria-hidden="true">
+<img class="trusted-logo" src="{% static 'images/dafara-official-logo.png' %}" alt="" aria-hidden="true" decoding="async">
+                <span class="trusted-name">DAFARA</span>
+            </div>
+        </div>
     </div>
 </section>
 

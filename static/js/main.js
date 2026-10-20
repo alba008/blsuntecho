@@ -28,3 +28,33 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
+
+// BLSUNTECH PROJECT SHOWCASE ADDITION V1
+document.addEventListener("DOMContentLoaded", () => {
+    const showcases = document.querySelectorAll("[data-showcase]");
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+    }
+
+    showcases.forEach(showcase => {
+        const slides = [...showcase.querySelectorAll(".showcase-slide")];
+        if (slides.length < 2) return;
+
+        let current = 0;
+
+        setInterval(() => {
+            const previous = slides[current];
+
+            current = (current + 1) % slides.length;
+            const next = slides[current];
+
+            slides.forEach(slide => {
+                slide.classList.remove("is-active", "is-previous");
+            });
+
+            previous.classList.add("is-previous");
+            next.classList.add("is-active");
+        }, 3500);
+    });
+});

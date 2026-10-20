@@ -72,12 +72,20 @@
                     rel="noopener noreferrer"
                     aria-label="Visit Sockcs website"
                 >
-                    <img
-                        src="{% static 'images/projects/sockcs.webp' %}"
-                        alt="Sockcs platform screenshot"
-                        loading="lazy"
-                        decoding="async"
-                    >
+                    <span class="showcase-slides" data-showcase>
+                        <img
+                            src="{% static 'images/projects/sockcs.webp' %}"
+                            alt="Sockcs platform screenshot"
+                            loading="lazy"
+                            decoding="async"
+                            class="showcase-slide is-active"
+                        >
+                        <img src="{% static 'images/projects/sockcs-showcase/sockcs-01.png' %}" alt="Sockcs showcase section 1" loading="lazy" decoding="async" class="showcase-slide">
+                        <img src="{% static 'images/projects/sockcs-showcase/sockcs-02.png' %}" alt="Sockcs showcase section 2" loading="lazy" decoding="async" class="showcase-slide">
+                        <img src="{% static 'images/projects/sockcs-showcase/sockcs-03.png' %}" alt="Sockcs showcase section 3" loading="lazy" decoding="async" class="showcase-slide">
+                        <img src="{% static 'images/projects/sockcs-showcase/sockcs-04.png' %}" alt="Sockcs showcase section 4" loading="lazy" decoding="async" class="showcase-slide">
+                        <img src="{% static 'images/projects/sockcs-showcase/sockcs-05.png' %}" alt="Sockcs showcase section 5" loading="lazy" decoding="async" class="showcase-slide">
+                    </span>
                 </a>
                 <div class="portfolio-meta">
                     <span>02 / E-COMMERCE</span>
