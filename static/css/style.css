@@ -1920,3 +1920,82 @@ p { line-height: 1.75; }
 .footer-grid a {
     overflow-wrap: anywhere;
 }
+
+
+/* BLSUNTECH CORPORATE CONTACT V2 */
+
+.corporate-contact-section {
+    padding: 88px 0 100px;
+    border-top: 1px solid #e8e8e8;
+    background: #fafafa;
+}
+
+.corporate-contact-section h2 {
+    font-size: clamp(32px, 4vw, 52px);
+    letter-spacing: -0.05em;
+    line-height: 1.15;
+    margin: 18px 0;
+}
+
+.corporate-contact-description {
+    max-width: 560px;
+    color: #666;
+    line-height: 1.8;
+    margin-bottom: 36px;
+}
+
+.corporate-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.corporate-contact-card {
+    background: #fff;
+    border: 1px solid #e4e4e4;
+    padding: 38px;
+    min-width: 0;
+    transition: border-color 0.2s ease;
+}
+
+.corporate-contact-card:hover {
+    border-color: #111;
+}
+
+.corporate-contact-card h3 {
+    font-size: 24px;
+    letter-spacing: -0.035em;
+    margin: 18px 0;
+}
+
+.corporate-contact-card address {
+    font-style: normal;
+    color: #555;
+    line-height: 1.8;
+}
+
+.corporate-contact-card a {
+    color: #111;
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.corporate-contact-card a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .corporate-contact-section {
+        padding: 64px 0 76px;
+    }
+
+    .corporate-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .corporate-contact-card {
+        padding: 28px;
+    }
+}
