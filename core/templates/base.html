@@ -18,6 +18,25 @@
     <meta property="og:title" content="{% block og_title %}BlsunTech Dynamics | Secure Digital Engineering{% endblock %}">
     <meta property="og:description" content="{% block og_description %}BlsunTech Dynamics engineers secure digital infrastructure, cloud systems, and custom business software.{% endblock %}">
     <meta property="og:url" content="https://blsuntechdynamics.com{{ request.path }}">
+    {% block structured_data %}
+    {% if request.path == "/" %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "@id": "https://blsuntechdynamics.com/#organization",
+      "name": "BlsunTech Dynamics",
+      "url": "https://blsuntechdynamics.com/",
+      "description": "Technology company specializing in cybersecurity, network engineering, cloud infrastructure, custom software development, and automation.",
+      "areaServed": {
+        "@type": "Place",
+        "name": "New York, NY, United States"
+      }
+    }
+    </script>
+    {% endif %}
+    {% endblock %}
+
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
 </head>
