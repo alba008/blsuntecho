@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /contact/success/
+Sitemap: https://blsuntechdynamics.com/sitemap.xml
