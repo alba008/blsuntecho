@@ -5,8 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" sizes="512x512" href="{% static 'images/seo/favicon.png' %}">
-    <meta name="description" content="BlsunTech Dynamics engineers secure digital infrastructure, cloud systems, and custom business software.">
     <title>{% block title %}BlsunTech Dynamics{% endblock %}</title>
+
+    <meta name="description" content="{% block meta_description %}BlsunTech Dynamics engineers secure digital infrastructure, cloud systems, and custom business software.{% endblock %}">
+
+    {% block robots_meta %}{% endblock %}
+
+    <link rel="canonical" href="https://blsuntechdynamics.com{{ request.path }}">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="BlsunTech Dynamics">
+    <meta property="og:title" content="{% block og_title %}BlsunTech Dynamics | Secure Digital Engineering{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}BlsunTech Dynamics engineers secure digital infrastructure, cloud systems, and custom business software.{% endblock %}">
+    <meta property="og:url" content="https://blsuntechdynamics.com{{ request.path }}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <script src="{% static 'js/main.js' %}" defer></script>
 </head>
